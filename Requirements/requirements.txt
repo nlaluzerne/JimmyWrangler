@@ -1,0 +1,21 @@
+Requirements:
+
+    Tools:
+        Jupyter Notebooks
+
+    Python:
+        Python 3.7 (Anaconda)
+
+    Libraries:
+        pandas
+        numpy
+        sklearn.cluster - KMeans
+        matplotlib.pyplot
+
+    File Structure:
+        Provided, no need to modify file paths (as long as data is in \Data\ml-latest-small
+
+    Necessary Files:
+        movies.csv
+        ratings.csv
+        tags.csv

@@ -1,0 +1,38 @@
+I think that combining ratings and tags by users could help establish additional value using exploratory data analysis in this data set.
+By combining the ratings from users and the tags by users, this will create a correlation of sorts between user's tastes in movies and
+the movies themselves, making it relatively easy to recommend new movies for users. For example, if User1 rated a movie, M, with a
+rating of 4 and gave it a tag, T, and User2 rated a different movie, N, with a rating of 5 and a tag, T, (the same tag as User1's tag
+for Movie M), then we should recommend that User2 also watch movie M, given that User2 liked movie N and tagged it with T and movie M
+was rated highly by User1 with the same tag. The same would be true for recommending movie N to User1. I also think this same concept
+could be extended to use user ratings and genres in the same manner as above. This may actually be even easier to do, given that there
+are a set list of genres that a movie could possibly be, whereas the user tags could be any string and may not be entirely useful.
+
+Process
+    1.  Read in the data sets.
+    2.  Both the title and genres columns in the movies data set are categorical and don't have any relevance with regards to clustering
+        based on user tags and ratings. Remove the title and genres columns from the movies data set.
+    3.  Given that there are many different ratings for each movie, calculate the average rating for each movie using the ratings data
+        set to represent overall user sentiment towards a movie and add the average rating to a new column in the movies data set.
+    4.  Given that there are many different tags for each movie (or sometimes no tags), collect all the tags for each movie, add them
+        to a pipe-separated string, and add the new tag string to a new column in the movies data set.
+    5.  Since we are clustering based on ratings and tags, drop rows that have no tags or no ratings.
+    6.  Since clustering models can't use categorical data, use one-hot encoding to represent all the movie tags. Add the one-hot encoding
+        to the movie data set and drop the original tags column from the movies data set.
+    7.  Now that all the data sets have been combined for processing, remove the movieId column from the movies data set before applying
+        any clustering model so that the number of the movie does not affect the clustering.
+    8.  Use the K-means clustering model to cluster the movies data set based on user ratings and user tags.
+    9.  Plot the results of the K-means clustering.
+
+Results
+    I used a K-means clustering model with 8 clusters to find movies of similar user tags and ratings to be used in recommending movies
+    to other users. Analyzing the results in a scatter plot, it appears that there are 4-5 main clusters of similar movies with 3-4 outlier
+    "clusters". It also appears that the clusters center around average ratings, with movies in the same cluster all having similar average
+    ratings. This makes sense because movies with similar ratings have the same overall user sentiment, regardless of user tags. And although
+    we don't have titles of the clusters, we can assume that movies within clusters with similar ratings also had similar tags. This would
+    be helpful for recommending movies to users because if a certain user liked a movie and gave it a high rating and tagged it with a certain
+    tag, we could recommend another movie within the same cluster that the original movie fell in, given that the movies within clusters have
+    similar ratings and similar tags. An extension on this would also be to include genres in the clustering process. By adding in genres,
+    we could narrow down movies with similar tags, genres, and ratings, thereby theoretically improving our recommendation by using more
+    classification points to compare movies with. I tried to include movie genres in the clustering model using one-hot encoding, but the size
+    of the data set became too large when using one-hot encoding for both genres and tags.
+
